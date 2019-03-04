@@ -11,20 +11,27 @@ import java.util.List;
 //TODO
 public class PokemonTypeServiceImpl implements PokemonTypeService {
     RestTemplate restTemplate;
-    String pokemonServiceUrl;
+    String pokemonTypeServiceUrl;
     public List<PokemonType> listPokemonsTypes() {
 
         PokemonType[] result = restTemplate.getForObject(
-                this.pokemonServiceUrl, PokemonType[].class );
+                this.pokemonTypeServiceUrl, PokemonType[].class );
         return Arrays.asList(result);
-
     }
 
-    void setRestTemplate(RestTemplate restTemplate) {
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
+
+    public void setRestTemplate(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-    void setPokemonTypeServiceUrl(String pokemonServiceUrl) {
-        this.pokemonServiceUrl = pokemonServiceUrl;
+    public String getPokemonTypeServiceUrl() {
+        return pokemonTypeServiceUrl;
+    }
+
+    public void setPokemonTypeServiceUrl(String pokemonTypeServiceUrl) {
+        this.pokemonTypeServiceUrl = pokemonTypeServiceUrl;
     }
 }

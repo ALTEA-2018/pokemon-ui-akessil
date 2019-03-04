@@ -15,21 +15,21 @@ import java.util.List;
 @SpringBootApplication
 public class PokemonTypeController {
 
-    private PokemonTypeService pokemonTypeservice;
+    private PokemonTypeService pokemonTypeService;
 
     @GetMapping("/")
     public ModelAndView pokedex(){
-        List<PokemonType> pokemons = service.listPokemonsTypes();
+        List<PokemonType> pokemons = pokemonTypeService.listPokemonsTypes();
         ModelAndView model = new ModelAndView("pokedex");
         model.getModel().put("pokemonTypes", pokemons);
         return model;
     }
 
-    public PokemonTypeService getPokemonTypeservice() {
-        return pokemonTypeservice;
+    public PokemonTypeService getPokemonTypeService() {
+        return pokemonTypeService;
     }
 
-    public void setPokemonTypeservice(PokemonTypeService pokemonTypeservice) {
-        this.pokemonTypeservice = pokemonTypeservice;
+    public void setPokemonTypeService(PokemonTypeService pokemonTypeservice) {
+        this.pokemonTypeService = pokemonTypeservice;
     }
 }

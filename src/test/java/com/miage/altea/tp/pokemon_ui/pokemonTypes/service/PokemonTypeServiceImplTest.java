@@ -1,6 +1,5 @@
 package com.miage.altea.tp.pokemon_ui.pokemonTypes.service;
 
-import com.miage.altea.tp.pokemon_ui.pokemonTypes.bo.PokemonType;
 import com.miage.altea.tp.pokemon_ui.pokemonsType.bo.PokemonType;
 import com.miage.altea.tp.pokemon_ui.pokemonsType.service.PokemonTypeServiceImpl;
 import org.junit.jupiter.api.Test;
