@@ -22,6 +22,7 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
 
     String pokemonTypeServiceUrl;
 
+    @Cacheable("pokemon-types")
     public List<PokemonType> listPokemonsTypes() {
     
         PokemonType[] result = restTemplate.getForObject(
