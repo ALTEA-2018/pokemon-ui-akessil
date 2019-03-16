@@ -72,7 +72,7 @@ public class TrainerController {
 
     private PokemonUI getPokemonUI(Pokemon pokemon){
         int pokemonId = pokemon.getPokemonType();
-        PokemonType pokemonType = pokemonTypeService.getPokemonTypeById(pokemonId);
+        PokemonType pokemonType = pokemonTypeService.getPokemonType(pokemonId);
         PokemonUI pokemonUI = pokemonMapper.pokemonToPokemonUI(pokemon,pokemonType);
         return pokemonUI;
     }

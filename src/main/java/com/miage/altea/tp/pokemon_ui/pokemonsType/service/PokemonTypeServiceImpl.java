@@ -6,6 +6,9 @@ import com.miage.altea.tp.pokemon_ui.pokemonsType.bo.PokemonType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -15,6 +18,7 @@ import java.util.List;
 @Service
 public class PokemonTypeServiceImpl implements PokemonTypeService {
     RestTemplate restTemplate;
+
     String pokemonTypeServiceUrl;
 
     public List<PokemonType> listPokemonsTypes() {
@@ -24,9 +28,10 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
         return Arrays.asList(result);
     }
 
-    public PokemonType getPokemonTypeById(int id){
+    @Cacheable("pokemon-types")
+    public PokemonType getPokemonType(int id){
         PokemonType result = restTemplate.getForObject(
-                this.pokemonTypeServiceUrl + "/" + id, PokemonType.class );
+                this.pokemonTypeServiceUrl + "/pokemon-types/{id}", PokemonType.class,id );
         return result;
     }
 

@@ -5,12 +5,13 @@ import com.miage.altea.tp.pokemon_ui.pokemonsType.service.PokemonTypeServiceImpl
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+@SpringBootTest
 class PokemonTypeServiceImplTest {
 
     @Test
@@ -55,5 +56,7 @@ class PokemonTypeServiceImplTest {
         assertNotNull(valueAnnotation);
         assertEquals("${pokemonType.service.url}", valueAnnotation.value());
     }
+
+
 
 }
