@@ -28,6 +28,10 @@ public class Trainer {
         return password;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Pokemon> getTeam() {
         return team;
     }

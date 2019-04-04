@@ -23,6 +23,12 @@ public class TrainerServiceImpl implements TrainerService {
         return Arrays.asList(result);
     }
 
+    @Override
+    public Trainer getTrainer(String trainerName) {
+        Trainer trainer = restTemplate.getForObject(this.trainerServiceUrl + trainerName, Trainer.class);
+        return  trainer;
+    }
+
     @Value("${trainer.service.url}")
     public void setTrainerUrl(String trainerUrl){
         this.trainerServiceUrl = trainerUrl;

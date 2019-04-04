@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface TrainerService {
     List<Trainer> listAllTrainers();
+    Trainer getTrainer(String trainerName);
 }
