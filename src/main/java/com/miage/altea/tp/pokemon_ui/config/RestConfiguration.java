@@ -13,10 +13,7 @@ import java.util.List;
 @Configuration
 public class RestConfiguration {
 
-
     private String userName;
-
-
     private String password;
 
     @Bean
