@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,6 +38,14 @@ public class TrainerController {
         return modelAndView;
     }
 
+    @GetMapping("/profile")
+    public TrainerUI getProfile(Principal principal){
+        if(principal == null) {
+            return null;
+        }
+        return getTrainerUI(trainerService.getTrainer(principal.getName()));
+    }
+
     @Autowired
     public void setTrainerService(TrainerService trainerService) {
         this.trainerService = trainerService;
@@ -49,24 +58,15 @@ public class TrainerController {
 
     private List<TrainerUI> getTrainersUI(List<Trainer> trainers){
         List<TrainerUI> result = new ArrayList<>();
-
         for(Trainer trainer: trainers) {
-            List<Pokemon> pokemons = trainer.getTeam();
-            List<PokemonUI> pokemonUIs = new ArrayList<>();
-
-            for(Pokemon pokemon : pokemons) {
-                PokemonUI pokemonUI = getPokemonUI(pokemon);
-                pokemonUIs.add(pokemonUI);
-            }
-
-            TrainerUI trainerUI = getTrainerUI(trainer, pokemonUIs);
-            result.add(trainerUI);
+            result.add(getTrainerUI(trainer));
         }
-
         return result;
     }
 
-    private TrainerUI getTrainerUI(Trainer trainer, List<PokemonUI> pokemonsUI){
+    private TrainerUI getTrainerUI(Trainer trainer){
+        List<Pokemon> pokemons = trainer.getTeam();
+        List<PokemonUI> pokemonsUI = getListPokemonUI(pokemons);
         return traionerMapper.trainerToTrainerUI(trainer, pokemonsUI);
     }
 
@@ -75,6 +75,14 @@ public class TrainerController {
         PokemonType pokemonType = pokemonTypeService.getPokemonType(pokemonId);
         PokemonUI pokemonUI = pokemonMapper.pokemonToPokemonUI(pokemon,pokemonType);
         return pokemonUI;
+    }
+
+    private List<PokemonUI> getListPokemonUI(List<Pokemon> pokemons){
+        List<PokemonUI> pokemonsUI = new ArrayList<>();
+        for(Pokemon pokemon : pokemons) {
+            pokemonsUI.add(getPokemonUI(pokemon));
+        }
+        return pokemonsUI;
     }
 
 

@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     public UserDetailsService userDetailsService() {
         return userName -> Optional.ofNullable(trainerService.getTrainer(userName))
-        .map(trainer -> User.withUsername(trainer.getName()).password(trainer.getPassword()).roles("USER").build())
+        .map(trainer -> User.withUsername(trainer.getName()).password(trainer.getPassword()).roles("ROLE_USER").build())
         .orElseThrow(() -> new BadCredentialsException("No such user"));
     }
 
