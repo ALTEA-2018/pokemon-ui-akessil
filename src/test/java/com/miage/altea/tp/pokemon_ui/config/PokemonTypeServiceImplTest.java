@@ -24,7 +24,7 @@ class PokemonTypeServiceImplTest {
     @Mock
     RestTemplate restTemplate;
 
-    @Value("${pokemonType.service.url}/pokemon-types/{id}")
+    @Value("${pokemonType.service.url}/{id}")
     String expectedUrl;
 
     @Autowired

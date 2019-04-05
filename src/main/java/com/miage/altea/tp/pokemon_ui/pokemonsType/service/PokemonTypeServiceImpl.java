@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.context.annotation.Bean;
 import org.springframework.retry.annotation.Retryable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -34,7 +32,7 @@ public class PokemonTypeServiceImpl implements PokemonTypeService {
     @Retryable
     public PokemonType getPokemonType(int id){
         PokemonType result = restTemplate.getForObject(
-                this.pokemonTypeServiceUrl + "/pokemon-types/{id}", PokemonType.class,id );
+                this.pokemonTypeServiceUrl + "/{id}", PokemonType.class,id );
         return result;
     }
 

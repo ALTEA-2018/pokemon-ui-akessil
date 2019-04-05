@@ -7,6 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -15,6 +16,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Optional;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -27,54 +29,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-                Trainer trainer = trainerService.getTrainer(s);
-                if(trainer == null ) {
-                    throw new BadCredentialsException("No such user");
-                }
-
-                return new UserDetails() {
-                    @Override
-                    public Collection<? extends GrantedAuthority> getAuthorities() {
-                        Collection<SimpleGrantedAuthority> collection = new ArrayList<>();
-                        collection.add(new SimpleGrantedAuthority("ROLE_USER"));
-                        return collection;
-                    }
-
-                    @Override
-                    public String getPassword() {
-                        return trainer.getPassword();
-                    }
-
-                    @Override
-                    public String getUsername() {
-                        return trainer.getName();
-                    }
-
-                    @Override
-                    public boolean isAccountNonExpired() {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean isAccountNonLocked() {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean isCredentialsNonExpired() {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean isEnabled() {
-                        return true;
-                    }
-                };
-            }
-        };
+        return userName -> Optional.ofNullable(trainerService.getTrainer(userName))
+        .map(trainer -> User.withUsername(trainer.getName()).password(trainer.getPassword()).roles("USER").build())
+        .orElseThrow(() -> new BadCredentialsException("No such user"));
     }
 
     public void setTrainerService(TrainerService trainerService) {
