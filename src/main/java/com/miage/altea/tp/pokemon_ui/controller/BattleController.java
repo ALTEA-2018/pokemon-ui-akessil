@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import java.security.Principal;
 
 @Controller
-@SpringBootApplication
 public class BattleController {
 
     @GetMapping("/fight/{opponent}")

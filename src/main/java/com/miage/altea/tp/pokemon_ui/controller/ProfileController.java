@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SpringBootApplication
 public class ProfileController {
 
     private TrainerService trainerService;

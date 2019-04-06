@@ -10,18 +10,14 @@ import com.miage.altea.tp.pokemon_ui.trainers.bo.Trainer;
 import com.miage.altea.tp.pokemon_ui.pokemonsType.service.PokemonTypeService;
 import com.miage.altea.tp.pokemon_ui.trainers.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@SpringBootApplication
 public class TrainerController {
     private TrainerService trainerService;
     private PokemonTypeService pokemonTypeService;
