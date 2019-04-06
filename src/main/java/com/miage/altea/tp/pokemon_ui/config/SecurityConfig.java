@@ -3,6 +3,7 @@ package com.miage.altea.tp.pokemon_ui.config;
 import com.miage.altea.tp.pokemon_ui.trainers.bo.Trainer;
 import com.miage.altea.tp.pokemon_ui.trainers.service.TrainerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -19,6 +20,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+@Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -30,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     public UserDetailsService userDetailsService() {
+        System.out.println("----------------------------------- userDetailsService IN trainserServiceDefined: " + (trainerService != null));
         return userName -> Optional.ofNullable(trainerService.getTrainer(userName))
         .map(trainer -> User.withUsername(trainer.getName()).password(trainer.getPassword()).roles("USER").build())
         .orElseThrow(() -> new BadCredentialsException("No such user"));
@@ -39,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http.csrf().ignoringAntMatchers("/api/**");
+        http.csrf().disable();
     }
 
     public void setTrainerService(TrainerService trainerService) {

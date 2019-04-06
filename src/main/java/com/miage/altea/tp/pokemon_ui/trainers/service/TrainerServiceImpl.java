@@ -25,7 +25,9 @@ public class TrainerServiceImpl implements TrainerService {
 
     @Override
     public Trainer getTrainer(String trainerName) {
+        System.out.println("------------------------------------ getTrainer, name:" + trainerName);
         Trainer trainer = restTemplate.getForObject(this.trainerServiceUrl + trainerName, Trainer.class);
+        System.out.println("------------------------------------ getTrainer, trainer:" + trainer);
         return  trainer;
     }
 
